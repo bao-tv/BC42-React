@@ -1,12 +1,10 @@
-// import Welcome from "./1_Component/Welcome";
-// import Home from "./BT-HomeLayout/Home";
-// import Shop from "./BT-ShopLayout/Shop";
 import BtReact from './React-1/BtReact';
+import Glass from './React-2/Glass';
 
 function App() {
   return (
     <div>
-      <BtReact />
+      <Glass />
     </div>
   );
 }
