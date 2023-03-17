@@ -8,6 +8,7 @@ function Glass() {
     const handleProduct = (product) => {
         setProduct(product);
     }
+    
   return (
     <div className='fullPage'>
             <header>
@@ -21,7 +22,7 @@ function Glass() {
                         <div className="model-glass">
                             <img src={product.url} alt="" />
                         </div>
-                        <div className="info">
+                        <div className="info" style={(!product)? {display: 'none'}: {display: 'block'}}>
                             <h5>{product.name}</h5>
                             <p>{product.desc}</p>
                         </div>
