@@ -1,4 +1,4 @@
-import BtReact from './React-1/BtReact';
+// import BtReact from './React-1/BtReact';
 import Glass from './React-2/Glass';
 
 function App() {

@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './main.css';
+import data from './dataGlasses.json';
+import Product from './Product';
 
 function Glass() {
+    const [product, setProduct] = useState('');
+    const handleProduct = (product) => {
+        setProduct(product);
+    }
   return (
     <div className='fullPage'>
             <header>
@@ -10,17 +16,19 @@ function Glass() {
                 </div>
             </header>
             <div className='container'>
-                <div className="justify-content-center align-items-center show">
+                <div className="show">
                     <div className='model'>
+                        <div className="model-glass">
+                            <img src={product.url} alt="" />
+                        </div>
                         <div className="info">
-                            <h5>GUCCI G8850U</h5>
-                            <p>Light pink square lenses define these sunglasses, ending with amother of pearl effect tip.</p>
+                            <h5>{product.name}</h5>
+                            <p>{product.desc}</p>
                         </div>
                     </div>
-                    <div className="glass"></div>
+                    <Product onProduct={handleProduct} productList={data}/>
                 </div>
             </div>
-
     </div>
   )
 }
