@@ -1,0 +1,33 @@
+.feature {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
+    margin-top: -1.5rem!important;
+}
+
+.bi-collection::before {
+    content: "\f2cc";
+  };
+
+.bi-cloud-download {
+    content: "\F29B";
+}
+
+.bi-card-heading {
+    content: "\F225";
+}
+
+.bi-bootstrap {
+    content: "\F1A8";
+}
+
+.bi-code {
+    content: '\F2C8';
+}
+
+.bi-patch-check {
+    content: '\F4B6';
+}
