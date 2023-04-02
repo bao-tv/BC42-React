@@ -2,6 +2,7 @@ import React, {useState, useEffect, useReducer} from 'react';
 import axios from 'axios';
 import ProductForm from './ProductForm';
 import ProductList from './ProductList';
+import Search from './Search';
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -23,16 +24,24 @@ function ProductManagement() {
         err: null
     });
     const [show, setShow] = useState(false);
+    const [searchByName,setSearchByName] = useState('');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [selectProduct, setSelectProduct] = useState({})
     const url = "https://63e8641ccbdc565873852dc8.mockapi.io/api/Products/";
     //  call API
     const fetchProducts = async () => {
         dispatch({type: "FETCH_START"});
         try {
             const response = await axios.get(
-                url
+                url,
+                {
+                    params: {
+                      name: searchByName || undefined,
+                    },
+                }
             );
+            // console.log(response.config);
             dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
         } catch (error) {
             dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -40,15 +49,17 @@ function ProductManagement() {
     };
 
     // handle submit update or created
-    const handleSubmit = async (user) => {
+    const handleSubmit = async (obj) => {
         try {
-            if(user.id) {
+            if(obj.id) {
+                console.log('cập nhật: ',obj);
                 await axios.put(
-                    url(user.id),user
+                    url+(obj.id),obj
                 );
             } else {
+                console.log('tạo: ',obj);
                 await axios.post(
-                    url,user
+                    url,obj
                 );
             }
             fetchProducts();
@@ -57,9 +68,24 @@ function ProductManagement() {
         }
     };
 
-    useEffect(() => {
-        fetchProducts();
-        }, []);
+    const handleSelectProduct = (obj) => {
+        // console.log('Product select: ',obj);
+        setSelectProduct(obj);
+        handleShow();
+    }
+
+    const handleRemoveProduct = async (id) => {
+        try {
+            await axios.delete(url+id);    fetchProducts();
+        } catch (err){
+            console.log(err);
+        }
+    }
+    const handleSearch = async (searchByName) => {
+        setSearchByName(searchByName);
+    }
+
+    useEffect(() => {fetchProducts()},[searchByName]);
 
   return (
     <div className='container'>
@@ -67,11 +93,19 @@ function ProductManagement() {
             <p className='text-center fs-2 p-3 fw-bold'>Product Manage</p>
         </header>
 
-        <div className='m-3'>
-            <button className='btn btn-success' onClick={handleShow}>Created Product</button>
-            <ProductForm variant="primary" onClose={handleClose} show={show} onSubmit={handleSubmit}/>
+        <div className='m-3 d-flex justify-content-between'>
+            <button className='btn btn-success m-3' onClick={handleShow}>Created Product</button>
+            <div className="m-3 w-25">
+                <Search onSearch={handleSearch}/>
+            </div>
         </div>
-        <ProductList state={state}/>
+        <ProductForm variant="primary" 
+        onClose={handleClose} 
+        show={show} 
+        selectProduct={selectProduct}  
+        onSubmit={handleSubmit}
+        onRestSelectProduct={() => setSelectProduct({})}/>
+        <ProductList state={state} onSelectProduct={handleSelectProduct} onRemoveProduct={handleRemoveProduct}/>
     </div>
   )
 }

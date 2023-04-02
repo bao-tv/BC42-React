@@ -1,10 +1,13 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 
-function ProductList({state,onSelectProduct, onRemoveProduct}) {
+function ProductList({state,onSelectProduct,onRemoveProduct}) {
   return (
     <div className='row'>
-        {state.loading && <h1>Loading...</h1>}
+        {state.loading &&  <div className="text-center">
+            <img src='img/loading.svg' alt="" style={{ width: '100px',height: '100px'}}/>
+                </div>
+        }
         {state.error && <h1>{state.error}</h1>}
         
             <Table striped bordered hover size="sm">
@@ -20,7 +23,7 @@ function ProductList({state,onSelectProduct, onRemoveProduct}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {state.products && state.products.map((obj, index) => {
+                    {state.products && !state.loading && state.products.map((obj, index) => {
                         return (
                             <tr key={obj.id}>
                                 <td>{index + 1}</td>
