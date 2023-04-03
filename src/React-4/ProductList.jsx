@@ -26,12 +26,14 @@ function ProductList({state,onSelectProduct,onRemoveProduct}) {
                     {state.products && !state.loading && state.products.map((obj, index) => {
                         return (
                             <tr key={obj.id}>
-                                <td>{index + 1}</td>
+                                <th>{index + 1}</th>
                                 <td>{obj.name}</td>
                                 <td>{obj.type}</td>
                                 <td>{obj.description}</td>
-                                <td>{obj.image}</td>
-                                <td>{obj.price}</td>
+                                <td>
+                                    <img src={obj.image} width={60} alt='img loading'/>
+                                </td>
+                                <td>{(+obj.price).toLocaleString()}</td>
                                 <td>
                                     <button className="btn btn-warning me-2" 
                                     onClick={()=> onSelectProduct(obj)}>Edit</button>

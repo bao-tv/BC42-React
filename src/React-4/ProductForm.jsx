@@ -59,7 +59,6 @@ function ProductForm({show, onClose, onSubmit, selectProduct, onRestSelectProduc
       } else if (isNaN(product.price)) {
         errors.price = 'price must be a number';
         isValid = false;
-        console.log(typeof +product.price);
       }
 
       if(!product.image) {
@@ -92,8 +91,6 @@ function ProductForm({show, onClose, onSubmit, selectProduct, onRestSelectProduc
       });
       onRestSelectProduct();
     }
-    // console.log(product.name);
-    // console.log(product);
   return (
     <div>
         <Modal show={show} onHide={onClose} >
