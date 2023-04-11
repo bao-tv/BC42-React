@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'font-game';
+    src: url('./font/Pony.ttf');
+}
+
+.game {
+    background-image: url('./game_xuc_xac/bgGame.png');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    font-family: font-game;
+}
+
+.btnGame {
+    width: 200px;
+    height: 200px;
+    font-size: 50px;
+    background-color: #5123e6;
+    color: white;
+    border: 5px solid #32c635;
+    border-radius: 15px;
+}
+
+.xucxac {
+    width: 60px;
+    height: 60px;
+    margin: 5px ;
+}
