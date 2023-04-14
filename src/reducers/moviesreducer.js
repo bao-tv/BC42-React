@@ -1,33 +1,33 @@
 import data from "../React-5/danhSachGhe.json";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    card: [],
+    carts: [],
     tongGhe : data
 }
-
-function moviesReducer(state = initialState, action) {
-    // console.log(state.card);
-    switch (action.type) {
-        case "movies/seat_book": {
+const moviesReducer = createSlice({
+    name: "movies",
+    initialState: initialState,
+    reducers: {
+        seat_book: (state, action) => {
             const seat  = action.payload;
-            let card;
+            let carts;
             const tongGhe = (state.tongGhe).map((row) => {
                 const danhSachGhe = (row.danhSachGhe).map((item) => {
                     if(seat.soGhe === item.soGhe) {
-                        card = [...state.card, item];
+                        carts = [...state.carts, item];
                         return { ...item, dangChon: true}
                     } 
                     return item;
                 })
                 return {...row, danhSachGhe}
             })
-            return {...state, tongGhe, card}
-        }
-
-        case "movies/seat_remove" : {
+            return {...state, tongGhe, carts}
+        },
+        seat_remove: (state, action) => {
             const seat  = action.payload;
             // console.log(seatCode);
-            let card = (state.card).filter((item) => seat.soGhe !== item.soGhe)
+            let carts = (state.carts).filter((item) => seat.soGhe !== item.soGhe)
             const tongGhe = (state.tongGhe).map((row) => {
                 const danhSachGhe = (row.danhSachGhe).map((item) => {
                     if(seat.soGhe === item.soGhe) {
@@ -37,14 +37,11 @@ function moviesReducer(state = initialState, action) {
                 })
                 return {...row, danhSachGhe}
             })
-            return {...state, tongGhe,card}
-            }
+            return {...state, tongGhe,carts}
+        },
+    },
+})
 
-        default:
-            return state;
-        }
-    };
+export const {seat_book, seat_remove} = moviesReducer.actions;
 
-
-
-export default moviesReducer;
+export default moviesReducer.reducer;

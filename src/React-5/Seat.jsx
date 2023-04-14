@@ -1,14 +1,15 @@
 import React from 'react';
 // import data from './danhSachGhe.json'
 import { useSelector, useDispatch } from 'react-redux';
+import {seat_book, seat_remove} from '../reducers/moviesreducer';
 
 function Seat() {
     const dispath = useDispatch();
     const data = useSelector((state) => (state.moviesReducer).tongGhe)
 
     const book = (seat) => {
-        if(seat.dangChon) dispath({type: "movies/seat_remove", payload: seat})
-        else dispath({type: "movies/seat_book", payload: seat})
+        if(seat.dangChon) dispath(seat_remove(seat))
+        else dispath(seat_book(seat))
     }
   return (
     <div className='w-75 m-auto mt-5'>
